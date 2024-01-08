@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Proiect_Aplicatia_Mobila.ListTablePage"
+             Title="ListTablePage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Table List" Clicked="OnTableListAddedClicked" />
+    </ContentPage.ToolbarItems>
+
+    <StackLayout Margin="20">
+        <!-- Adaugă un label pentru nume -->
+        <Label Text="Descriere masa" />
+        <Entry Text="{Binding Description}" />
+
+        <Label Text="Zone" />
+        <Entry Text="{Binding Zone}" />
+
+        <!-- Adaugă un label pentru numărul de locuri -->
+        <Label Text="Număr de Locuri" />
+        <Entry Text="{Binding Seats}" Keyboard="Numeric" />
+
+        <!-- Adaugă un switch pentru a selecta masa -->
+        <StackLayout Orientation="Horizontal" Margin="0,20,0,0">
+            <Label Text="Selectează masa" VerticalOptions="Center" />
+            <Switch IsToggled="{Binding IsSelected}" />
+        </StackLayout>
+
+        <!-- Adaugă butoane pentru a salva și șterge -->
+        <StackLayout Orientation="Horizontal" Margin="0,20,0,0">
+            <Button Text="Salvează" Clicked="OnSaveButtonClicked" />
+            <Button Text="Șterge" Clicked="OnDeleteButtonClicked" />
+        </StackLayout>
+    </StackLayout>
+</ContentPage>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="Proiect_Aplicatia_Mobila.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:Proiect_Aplicatia_Mobila"
+    Shell.FlyoutBehavior="Disabled">
+    <TabBar>
+        <ShellContent
+          Title="Book your table in restaurant!"
+          ContentTemplate="{DataTemplate local:MainPage}"
+        />
+        <ShellContent
+           Title="About"
+           ContentTemplate="{DataTemplate local:AboutPage}"
+        />
+        <ShellContent
+            Title="Reservation"
+            ContentTemplate="{DataTemplate local:ReservationPage}"
+        />
+        <ShellContent
+            Title="Table"
+            ContentTemplate="{DataTemplate local:ListTablePage}"
+        />
+        <ShellContent
+            Title="Zone"
+            ContentTemplate="{DataTemplate local:ZonePage}"
+        />
+    </TabBar>
+
+</Shell>
