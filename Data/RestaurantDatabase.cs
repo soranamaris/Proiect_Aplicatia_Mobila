@@ -94,17 +94,21 @@ namespace Proiect_Aplicatia_Mobila.Data
         }
         public Task<int> SaveReservationAsync(Reservation rlist)
         {
-            if (rlist.ID == 0)
+            if (rlist == null)
+            {
+                throw new ArgumentNullException(nameof(rlist));
+            }
+
+            if (rlist.ID == 0) 
             {
                 return _database.InsertAsync(rlist);
             }
-
             else
             {
                 return _database.UpdateAsync(rlist);
-
             }
         }
+
         public Task<int> DeleteReservationAsync(Reservation rlist)
         {
             return _database.DeleteAsync(rlist);

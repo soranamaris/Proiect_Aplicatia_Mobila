@@ -32,9 +32,12 @@ public partial class ReservationPage : ContentPage
     }
     async void OnSaveButtonClicked(object sender, EventArgs e)
     {
-        var rlist = (Reservation)BindingContext;
-       
+        var rlist = BindingContext as Reservation;
 
+        if (rlist == null)
+        {
+            return;
+        }
 
         await App.Database.SaveReservationAsync(rlist);
         listView.ItemsSource = await App.Database.GetReservationAsync(); 
