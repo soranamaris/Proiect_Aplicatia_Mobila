@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using SQLite;
 using System.Threading.Tasks;
 using Proiect_Aplicatia_Mobila.Models;
+using System.Diagnostics;
 
 namespace Proiect_Aplicatia_Mobila.Data
 {
@@ -94,18 +95,28 @@ namespace Proiect_Aplicatia_Mobila.Data
         }
         public Task<int> SaveReservationAsync(Reservation rlist)
         {
-            if (rlist == null)
+            try
             {
-                throw new ArgumentNullException(nameof(rlist));
-            }
+                if (rlist == null)
+                {
+                    throw new ArgumentNullException(nameof(rlist));
+                }
 
-            if (rlist.ID == 0) 
-            {
-                return _database.InsertAsync(rlist);
+                if (rlist.ID == 0)
+                {
+                    Debug.WriteLine("Inserting new reservation...");
+                    return _database.InsertAsync(rlist);
+                }
+                else
+                {
+                    Debug.WriteLine($"Updating reservation with ID {rlist.ID}...");
+                    return _database.UpdateAsync(rlist);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                return _database.UpdateAsync(rlist);
+                Debug.WriteLine($"Error in SaveReservationAsync: {ex.Message}");
+                throw;
             }
         }
 

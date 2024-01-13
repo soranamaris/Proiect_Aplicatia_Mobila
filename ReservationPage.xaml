@@ -27,7 +27,7 @@
             
         <!-- Adaugă un label pentru nume -->
             <Label Text="Data rezervarii" />
-            <DatePicker Date="{Binding ReservationDate, StringFormat='{0:d}'}" />
+            <DatePicker Date="{Binding ReservationDate}" />
 
         
        
@@ -74,7 +74,7 @@
 
         <!-- Adaugă butoane pentru a salva și șterge -->
             <StackLayout Orientation="Horizontal" Margin="0,20,0,0">
-                <Button Text="Salvează" Clicked="OnSaveButtonClicked" />
+            <Button Text="Salvează" Clicked="ReservationOnSaveButtonClicked" />
                 <Button Text="Șterge" Clicked="OnDeleteButtonClicked" />
             </StackLayout>
         </StackLayout>

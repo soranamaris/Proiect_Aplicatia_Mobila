@@ -27,8 +27,8 @@ namespace Proiect_Aplicatia_Mobila.Models
 
 
         [DataType(DataType.Time)]
-        public DateTime ReservationTime { get; set; }
+        public TimeSpan ReservationTime { get; set; }
 
-        public int ReservationDuration { get; set; }
+        public string ReservationDuration { get; set; }
     }
 }

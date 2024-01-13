@@ -1,4 +1,5 @@
 using Proiect_Aplicatia_Mobila.Models;
+using System.Diagnostics;
 
 namespace Proiect_Aplicatia_Mobila;
 
@@ -7,11 +8,19 @@ public partial class ReservationPage : ContentPage
     public ReservationPage()
     {
         InitializeComponent();
+        BindingContext = new Reservation();
     }
     protected override async void OnAppearing()
     {
         base.OnAppearing();
-        listView.ItemsSource = await App.Database.GetReservationAsync();
+        //listView.ItemsSource = await App.Database.GetReservationAsync();
+        var reservations = await App.Database.GetReservationAsync();
+        foreach (var reservation in reservations)
+        {
+            Debug.WriteLine($"ID: {reservation.ID}, Nume: {reservation.Nume}, Date: {reservation.ReservationDate}, Time: {reservation.ReservationTime}, Duration: {reservation.ReservationDuration}");
+        }
+
+        listView.ItemsSource = reservations;
     }
     async void OnShopListAddedClicked(object sender, EventArgs e)
     {
@@ -19,6 +28,7 @@ public partial class ReservationPage : ContentPage
         {
             BindingContext = new Reservation()
         });
+        
     }
     async void OnListViewItemSelected(object sender, SelectedItemChangedEventArgs e)
     {
@@ -30,18 +40,38 @@ public partial class ReservationPage : ContentPage
             });
         }
     }
-    async void OnSaveButtonClicked(object sender, EventArgs e)
+    async void ReservationOnSaveButtonClicked(object sender, EventArgs e)
     {
-        var rlist = BindingContext as Reservation;
+        //var rlist = BindingContext as Reservation;
 
-        if (rlist == null)
+        //if (rlist == null)
+        //{
+        //    return;
+        //}
+
+        //await App.Database.SaveReservationAsync(rlist);
+        //listView.ItemsSource = await App.Database.GetReservationAsync();
+
+        try
         {
-            return;
+            var rlist = BindingContext as Reservation;
+
+            if (rlist == null)
+            {
+                Debug.WriteLine("BindingContext is null");
+                return;
+            }
+
+            Debug.WriteLine($"Nume: {rlist.Nume}, Date: {rlist.ReservationDate}, Time: {rlist.ReservationTime}, Duration: {rlist.ReservationDuration}");
+
+            await App.Database.SaveReservationAsync(rlist);
+            listView.ItemsSource = await App.Database.GetReservationAsync();
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"Error: {ex.Message}");
         }
 
-        await App.Database.SaveReservationAsync(rlist);
-        listView.ItemsSource = await App.Database.GetReservationAsync(); 
-        
     }
     async void OnDeleteButtonClicked(object sender, EventArgs e)
     {
