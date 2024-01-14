@@ -8,6 +8,18 @@
     </ContentPage.ToolbarItems>
 
     <StackLayout Margin="20">
+        <ListView x:Name="listView"
+           Margin="20"
+          ItemSelected="OnTableListViewItemSelected">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <!-- Definește cum va arăta fiecare element în listă -->
+                    <TextCell Text="{Binding Description}" 
+                       Detail="{Binding Seats}" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        
         <!-- Adaugă un label pentru nume -->
         <Label Text="Descriere masa" />
         <Entry Text="{Binding Description}" />
@@ -17,7 +29,7 @@
 
         <!-- Adaugă un label pentru numărul de locuri -->
         <Label Text="Număr de Locuri" />
-        <Entry Text="{Binding Seats}" Keyboard="Numeric" />
+        <Entry Text="{Binding Seats}"/>
 
         <!-- Adaugă un switch pentru a selecta masa -->
         <StackLayout Orientation="Horizontal" Margin="0,20,0,0">

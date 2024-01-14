@@ -18,9 +18,8 @@ namespace Proiect_Aplicatia_Mobila.Models
         [PrimaryKey, AutoIncrement]
         public int ID { get; set; }
 
-        
-        [Range(1, 15, ErrorMessage = "The number of seats must be between 1 and 15")]
-        public int Seats { get; set; }
+     
+        public string Seats { get; set; }
 
         
 
@@ -30,7 +29,7 @@ namespace Proiect_Aplicatia_Mobila.Models
 
         [ForeignKey(typeof(Zone))]
         public int? ZoneID { get; set; }
-
+        public string Zone { get; set; }
 
         public bool IsSelected { get; set; }
 

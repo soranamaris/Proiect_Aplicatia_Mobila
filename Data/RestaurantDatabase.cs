@@ -35,13 +35,33 @@ namespace Proiect_Aplicatia_Mobila.Data
         }
         public Task<int> SaveTableListAsync(TableList tlist)
         {
-            if (tlist.ID != 0)
+
+            try
             {
-                return _database.UpdateAsync(tlist);
+
+                if (tlist == null)
+                {
+                    throw new ArgumentNullException(nameof(tlist));
+                }
+
+                if (tlist.ID == 0)
+                {
+                    Debug.WriteLine("Inserting new reservation...");
+                    return _database.InsertAsync(tlist);
+                }
+                else
+                {
+                    Debug.WriteLine($"Updating reservation with ID {tlist.ID}...");
+                    return _database.UpdateAsync(tlist);
+                }
+
             }
-            else
+            catch (Exception ex)
             {
-                return _database.InsertAsync(tlist);
+
+                Debug.WriteLine($"Error in SaveReservationAsync: {ex.Message}");
+                throw;
+
             }
         }
         public Task<int> DeleteTableListAsync(TableList tlist)
