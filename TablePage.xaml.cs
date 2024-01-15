@@ -10,7 +10,11 @@ public partial class TablePage : ContentPage
     async void OnSaveButtonClicked(object sender, EventArgs e)
     {
         var tlist = (TableList)BindingContext;
-       
+        if (tlist == null)
+        {
+            return;
+        }
+
         await App.Database.SaveTableListAsync(tlist);
         await Navigation.PopAsync();
     }

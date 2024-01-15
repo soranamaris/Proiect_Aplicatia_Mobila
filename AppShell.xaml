@@ -16,7 +16,7 @@
         />
         <ShellContent
             Title="Reservation"
-            ContentTemplate="{DataTemplate local:ReservationPage}"
+            ContentTemplate="{DataTemplate local:ListReservationPage}"
         />
         <ShellContent
             Title="Table"

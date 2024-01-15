@@ -3,59 +3,34 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Proiect_Aplicatia_Mobila.ReservationPage"
              Title="ReservationPage">
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Reservation List"
-                  Clicked="OnReservationAddedClicked" />
-    </ContentPage.ToolbarItems>
 
-        <StackLayout Margin="20">
-        <ListView x:Name="listView"
-                  Margin="20"
-                 ItemSelected="OnReservationViewItemSelected">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <!-- Definește cum va arăta fiecare element în listă -->
-                    <TextCell Text="{Binding Nume}" 
-                              Detail="{Binding ReservationDate}" />
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-        
-        <Label Text="Nume si prenume rezevare" />
-           <Entry Text="{Binding Nume}" />
-            
-            
-        <!-- Adaugă un label pentru nume -->
-            <Label Text="Data rezervarii" />
-            <DatePicker Date="{Binding ReservationDate}" />
+    <StackLayout Margin="20">
 
-        
-       
+        <Label Text="Formular Rezervare" FontAttributes="Bold" FontSize="Medium"/>
+        <Label Text="Nume si prenume rezervare" FontAttributes="Bold"/>
+        <Entry Text="{Binding Nume}" />
 
-        <!-- Adaugă un Picker pentru a selecta zona -->
+        <BoxView HeightRequest="1"/>
+
+        <Label Text="Data rezervarii" FontAttributes="Bold"/>
+        <DatePicker Date="{Binding ReservationDate}" />
+
         <Picker x:Name="zonePicker" Title="Selectează o zonă" SelectedIndexChanged="OnZonePickerSelectedIndexChanged">
-            <!-- Adaugă opțiuni pentru Picker -->
             <Picker.ItemsSource>
                 <x:Array Type="{x:Type x:String}">
                     <x:String>Gradina fermecata</x:String>
                     <x:String>Restaurant elegant</x:String>
-                    <!-- Adaugă și alte opțiuni dacă este nevoie -->
                 </x:Array>
             </Picker.ItemsSource>
         </Picker>
 
+        <Label Text="Ora rezervarii" FontAttributes="Bold"/>
+        <TimePicker Time="{Binding ReservationTime}" />
 
+        <Label Text="Durata rezervarii" FontAttributes="Bold"/>
+        <Entry Text="{Binding ReservationDuration}" />
 
-        <Label Text="Ora rezervarii" />
-            <TimePicker Time="{Binding ReservationTime}" />
-
-            <Label Text="Durata rezervarii" />
-            <Entry Text="{Binding  ReservationDuration}" />
-    
-        <!-- Adaugă un label pentru numărul de locuri -->
-            
         <Picker x:Name="tablePicker" Title="Numar de locuri masa" SelectedIndexChanged="OnTablePickerSelectedIndexChanged">
-            <!-- Adaugă opțiuni pentru Picker -->
             <Picker.ItemsSource>
                 <x:Array Type="{x:Type x:Int16}">
                     <x:Int16>2</x:Int16>
@@ -65,17 +40,15 @@
                     <x:Int16>10</x:Int16>
                     <x:Int16>12</x:Int16>
                     <x:Int16>14</x:Int16>
-                    <!-- Adaugă și alte opțiuni dacă este nevoie -->
                 </x:Array>
             </Picker.ItemsSource>
         </Picker>
 
+        <BoxView HeightRequest="1"/>
 
-
-        <!-- Adaugă butoane pentru a salva și șterge -->
-            <StackLayout Orientation="Horizontal" Margin="0,20,0,0">
+        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Margin="0,20,0,0">
             <Button Text="Salvează" Clicked="ReservationOnSaveButtonClicked" />
-                <Button Text="Șterge" Clicked="OnDeleteButtonClicked" />
-            </StackLayout>
+            <Button Text="Șterge" Clicked="OnDeleteButtonClicked" />
         </StackLayout>
+    </StackLayout>
 </ContentPage>

@@ -31,11 +31,6 @@
         <Label Text="Număr de Locuri" />
         <Entry Text="{Binding Seats}"/>
 
-        <!-- Adaugă un switch pentru a selecta masa -->
-        <StackLayout Orientation="Horizontal" Margin="0,20,0,0">
-            <Label Text="Selectează masa" VerticalOptions="Center" />
-            <Switch IsToggled="{Binding IsSelected}" />
-        </StackLayout>
 
         <!-- Adaugă butoane pentru a salva și șterge -->
         <StackLayout Orientation="Horizontal" Margin="0,20,0,0">

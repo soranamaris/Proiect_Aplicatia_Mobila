@@ -25,6 +25,8 @@ namespace Proiect_Aplicatia_Mobila.Models
         [DataType(DataType.Date)]
         public DateTime ReservationDate { get; set; }
 
+        public string Zone { get; set; }
+        public int NumarLocuri { get; set; }
 
         [DataType(DataType.Time)]
         public TimeSpan ReservationTime { get; set; }

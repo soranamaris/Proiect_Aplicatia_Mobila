@@ -1,14 +1,17 @@
-using Proiect_Aplicatia_Mobila.Models;
+﻿using Proiect_Aplicatia_Mobila.Models;
 using System.Diagnostics;
 
 namespace Proiect_Aplicatia_Mobila;
 
 public partial class ReservationPage : ContentPage
-{    
+{     
     public ReservationPage()
     {
         InitializeComponent();
-        BindingContext = new Reservation();
+        BindingContext = new Reservation
+        {
+            ReservationDate = DateTime.Now
+        };
     }
     protected override async void OnAppearing()
     {
@@ -20,7 +23,7 @@ public partial class ReservationPage : ContentPage
             Debug.WriteLine($"ID: {reservation.ID}, Nume: {reservation.Nume}, Date: {reservation.ReservationDate}, Time: {reservation.ReservationTime}, Duration: {reservation.ReservationDuration}");
         }
 
-        listView.ItemsSource = reservations;
+        
     }
     async void OnShopListAddedClicked(object sender, EventArgs e)
     {
@@ -42,42 +45,28 @@ public partial class ReservationPage : ContentPage
     }
     async void ReservationOnSaveButtonClicked(object sender, EventArgs e)
     {
-        //var rlist = BindingContext as Reservation;
-
-        //if (rlist == null)
-        //{
-        //    return;
-        //}
-
-        //await App.Database.SaveReservationAsync(rlist);
-        //listView.ItemsSource = await App.Database.GetReservationAsync();
-
-        try
+        var rlist = BindingContext as Reservation;
+        if (rlist != null)
         {
-            var rlist = BindingContext as Reservation;
-
-            if (rlist == null)
+            try
             {
-                Debug.WriteLine("BindingContext is null");
-                return;
+                await App.Database.SaveReservationAsync(rlist);
+                await Navigation.PopAsync(); // Sau folosește await Navigation.PushAsync(new ListReservationPage());
             }
-
-            Debug.WriteLine($"Nume: {rlist.Nume}, Date: {rlist.ReservationDate}, Time: {rlist.ReservationTime}, Duration: {rlist.ReservationDuration}");
-
-            await App.Database.SaveReservationAsync(rlist);
-            listView.ItemsSource = await App.Database.GetReservationAsync();
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error: {ex.Message}");
+            }
         }
-        catch (Exception ex)
-        {
-            Debug.WriteLine($"Error: {ex.Message}");
-        }
-
     }
     async void OnDeleteButtonClicked(object sender, EventArgs e)
     {
         var rlist = (Reservation)BindingContext;
-        await App.Database.DeleteReservationAsync(rlist);
-        listView.ItemsSource = await App.Database.GetReservationAsync();
+        if (rlist != null)
+        {
+            await App.Database.DeleteReservationAsync(rlist);
+            await Navigation.PopAsync(); // Sau folosește await Navigation.PushAsync(new ListReservationPage());
+        }
     }
     async void OnReservationAddedClicked(object sender, EventArgs e)
     {
@@ -97,14 +86,24 @@ public partial class ReservationPage : ContentPage
             });
         }
     }
-   public void OnZonePickerSelectedIndexChanged(object sender, EventArgs e)
+    public void OnZonePickerSelectedIndexChanged(object sender, EventArgs e)
     {
         var selectedZone = zonePicker.SelectedItem as string;
-        
+        if (!string.IsNullOrEmpty(selectedZone))
+        {
+            var reservation = (Reservation)BindingContext;
+            reservation.Zone = selectedZone;
+        }
     }
+
     public void OnTablePickerSelectedIndexChanged(object sender, EventArgs e)
-    {
-        var selectedTable = tablePicker.SelectedItem as string;
-        
-    }
+{
+        var selectedTable = tablePicker.SelectedItem as int?;
+        if (selectedTable.HasValue)
+        {
+            var reservation = (Reservation)BindingContext;
+            reservation.NumarLocuri = selectedTable.Value;
+        }
+}
+
 }
